@@ -1,4 +1,4 @@
-from base import KNN
+from knn import KNN
 class IB2(KNN):
   def __init__(self,k):
     super().__init__(k)

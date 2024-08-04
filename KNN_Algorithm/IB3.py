@@ -1,4 +1,4 @@
-from base import KNN
+from knn import KNN
 import numpy as np
 class IB3(KNN):
   def __init__(self,k=3):

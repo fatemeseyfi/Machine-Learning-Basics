@@ -2,7 +2,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from base import KNN
+from knn import KNN
 from IB2 import IB2
 from IB3 import IB3
 import numpy as np
