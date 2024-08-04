@@ -2,7 +2,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from from_scratch import KNN
+from base import KNN
 import numpy as np
 cmap = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
