@@ -2,18 +2,23 @@ import numpy as np
 
 class KMeans:
   def __init__(self, k=3, max_iter=300):
+    
     self.k = k
     self.max_iter = max_iter
-    self.centroids = []
-    self.clusters = [[] for _ in self.k]
-    self.X = []
+    self.centroids = np.array([])
+    self.clusters = [[] for _ in range(self.k)]
+    self.X = np.array([])
 
   # set cluster for all of datapoints
-  def fit(self,X):
+  def fit_predict(self,X):
     self.X = np.array(X)
     self.set_centroids()
+    y_predicted = []
 
     for _ in range(1,self.max_iter):
+      self.clusters = [[] for _ in range(self.k)]
+      y_predicted = []
+
       for x in self.X:
         # find the index of closest centroid
         distances = [self.euclidean_distance(x, c) for c in self.centroids]
@@ -21,9 +26,12 @@ class KMeans:
 
         # append the datapoint to proper cluster
         self.clusters[index].append(x)
+        y_predicted.append(index)
       
       # at the end of each iteration recalculate centroids
-      self.recalculate_centroids()
+      self.calculate_centroids()
+
+    return y_predicted
 
   # initialize centroids
   def set_centroids(self):
@@ -31,8 +39,9 @@ class KMeans:
 
   # calculate centroids according to the datapoints in each cluster
   def calculate_centroids(self):
-    for i in self.k:
-      self.centroids[i] = self.clusters[i].mean(axis = 0)
+    for i in range(self.k):
+      if self.clusters[i]:  # Avoid division by zero
+        self.centroids[i] = np.mean(self.clusters[i], axis=0)
 
   # calculate euqlidean distance between 2 points
   def euclidean_distance(self, u, v):
