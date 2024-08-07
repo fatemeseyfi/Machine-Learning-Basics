@@ -9,6 +9,7 @@ class BisectingKmeans:
     self.max_iter = max_iter
     self.centroids = []
 
+
   def get_cluster(self):
     sse = []
     for cluster, centroid in zip(self.clusters, self.centroids):
