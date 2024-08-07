@@ -4,6 +4,7 @@ import pandas as pd
 from kmeans import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
+from bisectingKmeans import BisectingKmeans
 
 data = datasets.load_iris()
 X = data.data
@@ -16,6 +17,9 @@ df.drop(columns=['sepal length (cm)', 'sepal width (cm)'], inplace=True)
 ms = MinMaxScaler()
 df['petal width (cm)'] = ms.fit_transform(df[['petal width (cm)']])
 df['petal length (cm)'] = ms.fit_transform(df[['petal length (cm)']])
+
+
+
 
 # visualize data
 # plt.scatter(df['petal length (cm)'], df['petal width (cm)'])
@@ -43,3 +47,5 @@ plt.title('Clusters')
 plt.xlabel('Petal Length (cm)')
 plt.ylabel('Petal Width (cm)')
 plt.show()
+
+
