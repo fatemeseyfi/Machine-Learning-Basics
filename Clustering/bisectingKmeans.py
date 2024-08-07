@@ -13,7 +13,7 @@ class BisectingKmeans:
   def get_cluster(self):
     sse = []
     for cluster, centroid in zip(self.clusters, self.centroids):
-        cluster_array = cluster.to_numpy()[:,:2]
+        cluster_array = cluster.drop(columns=['cluster', 'target'], axis=1).to_numpy()
         squared_diffs = np.sum((cluster_array - centroid) ** 2, axis=1)
         # Sum up the squared differences
         cluster_sse = np.sum(squared_diffs)
@@ -24,8 +24,9 @@ class BisectingKmeans:
     return c_index, self.clusters[c_index]
 
   def bisecting_kmeans(self,df):
+    
     km = KMeans(n_clusters=1)
-    km.fit(df[['petal length (cm)', 'petal width (cm)']])
+    km.fit(df.drop(columns=['cluster', 'target'], axis=1))
     self.centroids = km.cluster_centers_
     self.clusters = [df]
 
@@ -42,7 +43,7 @@ class BisectingKmeans:
     
       # make 2 clusters with that one
       km = KMeans(n_clusters = 2, max_iter = 300)
-      y_predicted = km.fit_predict(cluster[['petal length (cm)', 'petal width (cm)']])
+      y_predicted = km.fit_predict(cluster.drop(columns=['cluster', 'target'], axis=1))
       cluster['cluster'] = y_predicted
 
       # update other clusters label
